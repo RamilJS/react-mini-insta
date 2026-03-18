@@ -9,7 +9,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-function SettingsPage() {
+function SettingsPage(): React.JSX.Element {
   return (
     <div className="container mx-auto max-w-3xl py-10 space-y-8">
 

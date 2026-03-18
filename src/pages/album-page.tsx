@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Link, useParams } from "react-router-dom";
 
-function AlbumPage() {
+function AlbumPage(): React.JSX.Element {
   const { id } = useParams();
 
   // мок данных

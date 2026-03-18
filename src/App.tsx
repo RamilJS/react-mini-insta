@@ -17,21 +17,21 @@ function App(): React.JSX.Element {
           element={<LoginPage />}
         />
 
-        <Route element={<Layout />}>
+        <Route path="/" element={<Layout />}>
           <Route
-          path="/user"
+          path="users/:id"
           element={<UserPage />}
           />
           <Route
-            path="/albums/:id"
+            path="albums/:id"
             element={<AlbumPage />}
           />
           <Route
-            path="/photos/:id"
+            path="photos/:id"
             element={<PhotoPage />}
           />
           <Route
-            path="/settings"
+            path="settings"
             element={<SettingsPage />}
           />
           <Route
@@ -39,10 +39,9 @@ function App(): React.JSX.Element {
             element={<NotFoundPage />}
           />
         </Route>
-        
       </Routes>
     </BrowserRouter>
   )
 };
 
-export default App
+export default App;

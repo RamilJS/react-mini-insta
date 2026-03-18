@@ -9,7 +9,7 @@ function Layout() {
       <header className="border-b bg-background">
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
           <Link
-            to="/user"
+            to="/login"
             className="text-xl font-bold hover:opacity-80 transition"
           >
             Mini Insta

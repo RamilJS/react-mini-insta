@@ -3,6 +3,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 // import { Skeleton } from "@/components/ui/skeleton"
 import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 function UserPage(): React.JSX.Element {
   // Пока мок-данные
@@ -10,7 +11,10 @@ function UserPage(): React.JSX.Element {
     name: "Leanne Graham",
     email: "leanne@gmail.com",
     username: "Bret",
-  }
+  };
+
+  const {id} = useParams();
+  console.log(id);
 
   const albums = [
     { id: 1, title: "Vacation" },

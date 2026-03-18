@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 
-function PhotoPage() {
+function PhotoPage(): React.JSX.Element {
   const { id } = useParams()
 
   // мок фото
