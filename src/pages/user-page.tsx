@@ -3,18 +3,15 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Link, useParams } from "react-router-dom";
 import { useUser } from "@/hooks/use-user";
-import { useAlbums } from "@/hooks/use-albums";
+// import { useAlbums } from "@/hooks/use-albums";
 
-type Album = {
-  userId: number;
-  id: number;
-  title: string;
-};
+import type { Album } from "@/types/main";
+import { useUserAlbums } from "@/hooks/use-user-albums";
 
 function UserPage(): React.JSX.Element {
   const { id } = useParams<{ id: string }>();
   const { data: user, isLoading: userLoading, isError: userError } = useUser(id!);
-  const { data: albums, isLoading: albumsLoading, isError: albumsError } = useAlbums(id!);
+  const { data: albums, isLoading: albumsLoading, isError: albumsError } = useUserAlbums(id!);
 
   if (userLoading || albumsLoading) return <p>Loading...</p>;
   if (userError) return <p>User not found</p>;
@@ -41,7 +38,7 @@ function UserPage(): React.JSX.Element {
       <div className="space-y-6">
         <h2 className="text-2xl font-semibold">Albums</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {albums.map((album: Album) => (
+          {albums?.map((album: Album) => (
             <Card key={album.id} className="p-4 hover:shadow-lg transition cursor-pointer">
               <CardContent className="p-6 flex flex-col justify-between h-40">
                 <p className="font-medium line-clamp-2">{album.title}</p>
