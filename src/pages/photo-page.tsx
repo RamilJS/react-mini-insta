@@ -1,39 +1,52 @@
 import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { getPhotoById, getCommentsByPhotoId } from "@/api/photos";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 
-function PhotoPage(): React.JSX.Element {
-  const { id } = useParams()
+type Comment = {
+  postId: number
+  id: number
+  name: string
+  email: string
+  body: string
+};
 
-  // мок фото
-  const photo = {
-    id,
-    title: "Beautiful landscape",
-    url: "https://picsum.photos/900/500",
+function PhotoPage(): React.JSX.Element {
+  const { id } = useParams();
+
+  const {
+    data: photo,
+    isLoading: isPhotoLoading,
+    isError: isPhotoError,
+  } = useQuery({
+    queryKey: ["photo", id],
+    queryFn: () => getPhotoById(id!),
+    enabled: !!id,
+  });
+
+  const {
+    data: comments,
+    isLoading: isCommentsLoading,
+    isError: isCommentsError,
+  } = useQuery<Comment[]>({
+    queryKey: ["comments", id],
+    queryFn: () => getCommentsByPhotoId(id!),
+    enabled: !!id,
+  });
+
+  console.log(photo);
+
+  // loading state
+  if (isPhotoLoading) {
+    return <div className="p-10 text-center">Loading photo...</div>
   }
 
-  // мок комментариев
-  const comments = [
-    {
-      id: 1,
-      name: "John Doe",
-      email: "john@mail.com",
-      body: "Amazing photo!",
-    },
-    {
-      id: 2,
-      name: "Jane Smith",
-      email: "jane@mail.com",
-      body: "I love this view.",
-    },
-    {
-      id: 3,
-      name: "Alex Brown",
-      email: "alex@mail.com",
-      body: "Where was this taken?",
-    },
-  ]
+  // error state
+  if (isPhotoError || !photo) {
+    return <div className="p-10 text-center text-red-500">Error loading photo</div>
+  }
 
   return (
     <div className="container mx-auto max-w-4xl py-10 space-y-10">
@@ -47,7 +60,7 @@ function PhotoPage(): React.JSX.Element {
         <CardContent className="space-y-6">
 
           <img
-            src={photo.url}
+            src={`https://picsum.photos/seed/${photo.id}/600/400`}
             alt={photo.title}
             className="w-full rounded-lg object-cover"
           />
@@ -67,7 +80,15 @@ function PhotoPage(): React.JSX.Element {
 
         <CardContent className="space-y-6">
 
-          {comments.map((comment) => (
+          {isCommentsLoading && (
+            <p>Loading comments...</p>
+          )}
+
+          {isCommentsError && (
+            <p className="text-red-500">Error loading comments</p>
+          )}
+
+          {comments?.map((comment: Comment) => (
             <div key={comment.id} className="space-y-3">
 
               <div className="flex items-center gap-3">

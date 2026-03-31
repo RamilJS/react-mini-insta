@@ -27,7 +27,7 @@ function AlbumPage(): React.JSX.Element {
             <Card className="overflow-hidden hover:shadow-lg transition cursor-pointer">
               <CardContent className="p-0">
                 <img
-                  src={photo.url}
+                  src={`https://picsum.photos/seed/${photo.id}/600/400`}
                   alt={photo.title}
                   className="w-full h-48 object-cover"
                 />
