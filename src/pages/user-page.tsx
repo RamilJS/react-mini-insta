@@ -3,8 +3,6 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Link, useParams } from "react-router-dom";
 import { useUser } from "@/hooks/use-user";
-// import { useAlbums } from "@/hooks/use-albums";
-
 import type { Album } from "@/types/main";
 import { useUserAlbums } from "@/hooks/use-user-albums";
 

@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-
 import { getUserById } from "@/api/users";
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -44,6 +42,11 @@ function LoginPage(): React.JSX.Element {
             <Input
               value={userId}
               onChange={(e) => setUserId(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  setSubmittedId(userId);
+                }
+              }}
               placeholder="Enter user id (1-10)"
             />
           </div>
