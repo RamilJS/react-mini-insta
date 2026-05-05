@@ -6,41 +6,48 @@ import AlbumPage from './pages/album-page.tsx';
 import PhotoPage from './pages/photo-page.tsx';
 import SettingsPage from './pages/settings-page.tsx';
 import NotFoundPage from './pages/not-found.tsx';
+import { useAppStore } from "@/store/app-store";
+
 
 function App(): React.JSX.Element {
 
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path="/login"
-          element={<LoginPage />}
-        />
+const theme = useAppStore((state) => state.theme);
 
-        <Route path="/" element={<Layout />}>
+  return (
+    <div className={theme === "dark" ? "dark" : ""}>
+      <BrowserRouter>
+        <Routes>
           <Route
-          path="users/:id"
-          element={<UserPage />}
+            path="/login"
+            element={<LoginPage />}
           />
-          <Route
-            path="albums/:id"
-            element={<AlbumPage />}
-          />
-          <Route
-            path="photos/:id"
-            element={<PhotoPage />}
-          />
-          <Route
-            path="settings"
-            element={<SettingsPage />}
-          />
-          <Route
-            path="*"
-            element={<NotFoundPage />}
-          />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+
+          <Route path="/" element={<Layout />}>
+            <Route
+            path="users/:id"
+            element={<UserPage />}
+            />
+            <Route
+              path="albums/:id"
+              element={<AlbumPage />}
+            />
+            <Route
+              path="photos/:id"
+              element={<PhotoPage />}
+            />
+            <Route
+              path="settings"
+              element={<SettingsPage />}
+            />
+            <Route
+              path="*"
+              element={<NotFoundPage />}
+            />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </div>
+    
   )
 };
 

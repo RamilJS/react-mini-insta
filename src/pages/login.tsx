@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import { useAppStore } from "@/store/app-store";
 import { getUserById } from "@/api/users";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -11,6 +12,7 @@ function LoginPage(): React.JSX.Element {
   const [userId, setUserId] = useState("");
   const [submittedId, setSubmittedId] = useState("");
   const navigate = useNavigate();
+  const setUserIdStore = useAppStore((state) => state.setUserId);
 
   const { data, isError, isFetching } = useQuery({
     queryKey: ["login-user", submittedId],
@@ -20,13 +22,20 @@ function LoginPage(): React.JSX.Element {
   });
 
   // успешный логин
-  useEffect(() => {
+//   useEffect(() => {
+//   if (data) {
+//     sessionStorage.setItem("userId", submittedId);
+//     localStorage.setItem("userId", submittedId);
+//     navigate(`/users/${submittedId}`);
+//   }
+// }, [data, submittedId, navigate]);
+
+useEffect(() => {
   if (data) {
-    sessionStorage.setItem("userId", submittedId);
-    localStorage.setItem("userId", submittedId);
+    setUserIdStore(submittedId); // ← Zustand управляет storage
     navigate(`/users/${submittedId}`);
   }
-}, [data, submittedId, navigate]);
+}, [data, submittedId, navigate, setUserIdStore]);
 
   return (
     <div className="flex min-h-screen items-center justify-center">
