@@ -1,4 +1,4 @@
-import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import { Route, Routes, BrowserRouter, Navigate } from 'react-router-dom';
 import Layout from './components/layout/layout.tsx';
 import UserPage from './pages/user-page.tsx';
 import LoginPage from './pages/login.tsx';
@@ -8,47 +8,42 @@ import SettingsPage from './pages/settings-page.tsx';
 import NotFoundPage from './pages/not-found.tsx';
 import { useAppStore } from "@/store/app-store";
 
-
 function App(): React.JSX.Element {
-
-const theme = useAppStore((state) => state.theme);
+  const theme = useAppStore((state) => state.theme);
+  const userId = useAppStore((state) => state.userId);
 
   return (
     <div className={theme === "dark" ? "dark" : ""}>
       <BrowserRouter>
         <Routes>
-          <Route
-            path="/login"
-            element={<LoginPage />}
-          />
 
+          {/* login отдельно */}
+          <Route path="/login" element={<LoginPage />} />
+
+          {/* основное приложение */}
           <Route path="/" element={<Layout />}>
+
+            {/* ВОТ ОН — редирект с "/" */}
             <Route
-            path="users/:id"
-            element={<UserPage />}
+              index
+              element={
+                userId
+                  ? <Navigate to={`/users/${userId}`} replace />
+                  : <Navigate to="/login" replace />
+              }
             />
-            <Route
-              path="albums/:id"
-              element={<AlbumPage />}
-            />
-            <Route
-              path="photos/:id"
-              element={<PhotoPage />}
-            />
-            <Route
-              path="settings"
-              element={<SettingsPage />}
-            />
-            <Route
-              path="*"
-              element={<NotFoundPage />}
-            />
+
+            <Route path="users/:id" element={<UserPage />} />
+            <Route path="albums/:id" element={<AlbumPage />} />
+            <Route path="photos/:id" element={<PhotoPage />} />
+            <Route path="settings" element={<SettingsPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+
           </Route>
         </Routes>
       </BrowserRouter>
     </div>
-    
-  )
-};
+  );
+}
 
 export default App;

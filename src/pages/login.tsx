@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { useAppStore } from "@/store/app-store";
 import { getUserById } from "@/api/users";
@@ -13,6 +13,7 @@ function LoginPage(): React.JSX.Element {
   const [submittedId, setSubmittedId] = useState("");
   const navigate = useNavigate();
   const setUserIdStore = useAppStore((state) => state.setUserId);
+  const userIdFromStore = useAppStore((state) => state.userId);
 
   const { data, isError, isFetching } = useQuery({
     queryKey: ["login-user", submittedId],
@@ -21,21 +22,19 @@ function LoginPage(): React.JSX.Element {
     retry: false,
   });
 
-  // успешный логин
-//   useEffect(() => {
-//   if (data) {
-//     sessionStorage.setItem("userId", submittedId);
-//     localStorage.setItem("userId", submittedId);
-//     navigate(`/users/${submittedId}`);
-//   }
-// }, [data, submittedId, navigate]);
 
-useEffect(() => {
-  if (data) {
-    setUserIdStore(submittedId); // ← Zustand управляет storage
-    navigate(`/users/${submittedId}`);
+// успешный логин
+  useEffect(() => {
+    if (data) {
+      setUserIdStore(submittedId);
+      navigate(`/users/${submittedId}`);
+    }
+  }, [data, submittedId, navigate, setUserIdStore]);
+
+  // редирект если уже залогинен
+  if (userIdFromStore) {
+    return <Navigate to={`/users/${userIdFromStore}`} replace />;
   }
-}, [data, submittedId, navigate, setUserIdStore]);
 
   return (
     <div className="flex min-h-screen items-center justify-center">
