@@ -6,6 +6,7 @@ import AlbumPage from './pages/album-page.tsx';
 import PhotoPage from './pages/photo-page.tsx';
 import SettingsPage from './pages/settings-page.tsx';
 import NotFoundPage from './pages/not-found.tsx';
+import ProtectedRoute from './components/protected-route/protected-route.tsx';
 import { useAppStore } from "@/store/app-store";
 
 function App(): React.JSX.Element {
@@ -33,10 +34,14 @@ function App(): React.JSX.Element {
               }
             />
 
+            {/* защищённые роуты */}
+          <Route element={<ProtectedRoute />}>
             <Route path="users/:id" element={<UserPage />} />
             <Route path="albums/:id" element={<AlbumPage />} />
             <Route path="photos/:id" element={<PhotoPage />} />
             <Route path="settings" element={<SettingsPage />} />
+          </Route>
+
             <Route path="*" element={<NotFoundPage />} />
 
           </Route>
