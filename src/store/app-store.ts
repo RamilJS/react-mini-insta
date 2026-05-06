@@ -11,6 +11,7 @@ type AppState = {
   setTheme: (theme: Theme) => void;
   setGrid: (grid: Grid) => void;
   setUserId: (userId: string | null) => void;
+  logout: () => void;
 };
 
 export const useAppStore = create<AppState>((set) => ({
@@ -36,5 +37,10 @@ export const useAppStore = create<AppState>((set) => ({
     }
 
     set({ userId });
+  },
+
+  logout: () => {
+    sessionStorage.removeItem("userId");
+    set({ userId: null });
   },
 }));
