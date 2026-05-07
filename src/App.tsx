@@ -8,13 +8,15 @@ import SettingsPage from './pages/settings-page.tsx';
 import NotFoundPage from './pages/not-found.tsx';
 import ProtectedRoute from './components/protected-route/protected-route.tsx';
 import { useAppStore } from "@/store/app-store";
+import { useTheme } from "@/hooks/use-theme";
 
 function App(): React.JSX.Element {
-  const theme = useAppStore((state) => state.theme);
+  // const theme = useAppStore((state) => state.theme);
+  useTheme();
   const userId = useAppStore((state) => state.userId);
 
   return (
-    <div className={theme === "dark" ? "dark" : ""}>
+    
       <BrowserRouter>
         <Routes>
 
@@ -47,7 +49,7 @@ function App(): React.JSX.Element {
           </Route>
         </Routes>
       </BrowserRouter>
-    </div>
+    
   );
 }
 

@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 
 function Layout() {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-background text-foreground">
 
       {/* HEADER */}
       <header className="border-b bg-background">
