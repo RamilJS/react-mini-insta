@@ -1,10 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { getUserById } from "@/api/users";
+import type { User } from "@/types/main";
 
-export function useUser(userId: string) {
-  return useQuery({
-    queryKey: ["user", userId],
-    queryFn: () => getUserById(userId),
-    enabled: !!userId,
+export function useUser(id: string) {
+  return useSuspenseQuery<User>({
+    queryKey: ["user", id],
+    queryFn: () => getUserById(id),
   });
 }

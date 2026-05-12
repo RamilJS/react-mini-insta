@@ -4,16 +4,12 @@ import { Button } from "@/components/ui/button";
 import { Link, useParams } from "react-router-dom";
 import { useUser } from "@/hooks/use-user";
 import type { Album } from "@/types/main";
-import { useUserAlbums } from "@/hooks/use-user-albums";
+import { useAlbums } from "@/hooks/use-user-albums";
 
 function UserPage(): React.JSX.Element {
   const { id } = useParams<{ id: string }>();
-  const { data: user, isLoading: userLoading, isError: userError } = useUser(id!);
-  const { data: albums, isLoading: albumsLoading, isError: albumsError } = useUserAlbums(id!);
-
-  if (userLoading || albumsLoading) return <p>Loading...</p>;
-  if (userError) return <p>User not found</p>;
-  if (albumsError) return <p>Albums not found</p>;
+  const { data: user } = useUser(id!);
+  const { data: albums } = useAlbums(id!);
 
   return (
     <div className="container mx-auto max-w-5xl py-10 space-y-10">

@@ -15,12 +15,10 @@ function AlbumPage(): React.JSX.Element {
   const { albumQuery, photosQuery } = useAlbums(id!);
   const grid = useAppStore((state) => state.grid);
 
-  // ==== Loading / Error ====
-  if (albumQuery.isLoading || photosQuery.isLoading) return <p>Loading...</p>;
-  if (albumQuery.isError) return <p>Album not found</p>;
-  if (photosQuery.isError) return <p>Photos not found</p>;
-
-  
+  // // ==== Loading / Error ====
+  // if (albumQuery.isLoading || photosQuery.isLoading) return <p>Loading...</p>;
+  // if (albumQuery.isError) return <p>Album not found</p>;
+  // if (photosQuery.isError) return <p>Photos not found</p>;
 
   return (
     <div className="container mx-auto max-w-6xl py-10 space-y-8">

@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { getPhotoById, getCommentsByPhotoId } from "@/api/photos";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -16,37 +16,15 @@ type Comment = {
 function PhotoPage(): React.JSX.Element {
   const { id } = useParams();
 
-  const {
-    data: photo,
-    isLoading: isPhotoLoading,
-    isError: isPhotoError,
-  } = useQuery({
+  const { data: photo } = useSuspenseQuery({
     queryKey: ["photo", id],
     queryFn: () => getPhotoById(id!),
-    enabled: !!id,
   });
 
-  const {
-    data: comments,
-    isLoading: isCommentsLoading,
-    isError: isCommentsError,
-  } = useQuery<Comment[]>({
+const { data: comments } = useSuspenseQuery<Comment[]>({
     queryKey: ["comments", id],
     queryFn: () => getCommentsByPhotoId(id!),
-    enabled: !!id,
   });
-
-  console.log(photo);
-
-  // loading state
-  if (isPhotoLoading) {
-    return <div className="p-10 text-center">Loading photo...</div>
-  }
-
-  // error state
-  if (isPhotoError || !photo) {
-    return <div className="p-10 text-center text-red-500">Error loading photo</div>
-  }
 
   return (
     <div className="container mx-auto max-w-4xl py-10 space-y-10">
@@ -79,14 +57,6 @@ function PhotoPage(): React.JSX.Element {
         </CardHeader>
 
         <CardContent className="space-y-6">
-
-          {isCommentsLoading && (
-            <p>Loading comments...</p>
-          )}
-
-          {isCommentsError && (
-            <p className="text-red-500">Error loading comments</p>
-          )}
 
           {comments?.map((comment: Comment) => (
             <div key={comment.id} className="space-y-3">
