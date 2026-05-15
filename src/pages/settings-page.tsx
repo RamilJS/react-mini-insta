@@ -76,6 +76,6 @@ function SettingsPage(): React.JSX.Element {
       </Card>
     </div>
   );
-}
+};
 
 export default SettingsPage;

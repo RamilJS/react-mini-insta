@@ -15,7 +15,6 @@ import { useAppStore } from "@/store/app-store";
 import { useTheme } from "@/hooks/use-theme";
 
 function App(): React.JSX.Element {
-  // const theme = useAppStore((state) => state.theme);
   useTheme();
   const userId = useAppStore((state) => state.userId);
 
@@ -24,10 +23,8 @@ function App(): React.JSX.Element {
       <BrowserRouter>
         <Routes>
 
-          {/* login отдельно */}
           <Route path="/login" element={<LoginPage />} />
 
-          {/* основное приложение */}
           <Route
             path="/"
             element={
@@ -39,7 +36,6 @@ function App(): React.JSX.Element {
             }
           >
 
-            {/* ВОТ ОН — редирект с "/" */}
             <Route
               index
               element={
@@ -49,7 +45,6 @@ function App(): React.JSX.Element {
               }
             />
 
-            {/* защищённые роуты */}
           <Route element={<ProtectedRoute />}>
             <Route path="users/:id" element={<UserPage />} />
             <Route path="albums/:id" element={<AlbumPage />} />

@@ -5,7 +5,6 @@ function Layout() {
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
 
-      {/* HEADER */}
       <header className="border-b bg-background">
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
           <Link
@@ -24,7 +23,6 @@ function Layout() {
 
       </header>
 
-      {/* PAGE CONTENT */}
       <main className="flex-1">
         <Outlet />
       </main>

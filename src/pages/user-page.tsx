@@ -14,7 +14,6 @@ function UserPage(): React.JSX.Element {
   return (
     <div className="container mx-auto max-w-5xl py-10 space-y-10">
 
-      {/* USER INFO */}
       <Card>
         <CardHeader className="flex items-center gap-6">
           <Avatar className="h-20 w-20">
@@ -47,6 +46,6 @@ function UserPage(): React.JSX.Element {
 
     </div>
   );
-}
+};
 
 export default UserPage;

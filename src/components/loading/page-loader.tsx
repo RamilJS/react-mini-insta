@@ -12,6 +12,6 @@ function PageLoader(): React.JSX.Element {
       </div>
     </div>
   );
-}
+};
 
 export default PageLoader;

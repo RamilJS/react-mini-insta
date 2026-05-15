@@ -22,8 +22,6 @@ function LoginPage(): React.JSX.Element {
     retry: false,
   });
 
-
-// успешный логин
   useEffect(() => {
     if (data) {
       setUserIdStore(submittedId);
@@ -31,7 +29,6 @@ function LoginPage(): React.JSX.Element {
     }
   }, [data, submittedId, navigate, setUserIdStore]);
 
-  // редирект если уже залогинен
   if (userIdFromStore) {
     return <Navigate to={`/users/${userIdFromStore}`} replace />;
   }

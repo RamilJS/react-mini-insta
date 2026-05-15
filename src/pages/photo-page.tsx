@@ -92,6 +92,6 @@ const { data: comments } = useSuspenseQuery<Comment[]>({
 
     </div>
   )
-}
+};
 
 export default PhotoPage;

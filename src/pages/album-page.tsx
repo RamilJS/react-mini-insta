@@ -15,20 +15,13 @@ function AlbumPage(): React.JSX.Element {
   const { albumQuery, photosQuery } = useAlbums(id!);
   const grid = useAppStore((state) => state.grid);
 
-  // // ==== Loading / Error ====
-  // if (albumQuery.isLoading || photosQuery.isLoading) return <p>Loading...</p>;
-  // if (albumQuery.isError) return <p>Album not found</p>;
-  // if (photosQuery.isError) return <p>Photos not found</p>;
-
   return (
     <div className="container mx-auto max-w-6xl py-10 space-y-8">
-      {/* Заголовок */}
+
       <h1 className="text-3xl font-bold">Album #{id}</h1>
 
-      {/* ALBUM TITLE */}
       <h2 className="text-xl text-muted-foreground">{albumQuery.data?.title}</h2>
 
-      {/* Сетка фотографий */}
       <div className={`grid grid-cols-2 ${gridCols[grid]} gap-6`}>
         {photosQuery.data?.map((photo: Photo) => (
           <Link key={photo.id} to={`/photos/${photo.id}`}>
@@ -46,6 +39,6 @@ function AlbumPage(): React.JSX.Element {
       </div>
     </div>
   );
-}
+};
 
 export default AlbumPage;

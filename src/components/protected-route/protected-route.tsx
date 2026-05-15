@@ -9,6 +9,6 @@ function ProtectedRoute(): React.JSX.Element {
   }
 
   return <Outlet />;
-}
+};
 
 export default ProtectedRoute;
